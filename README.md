@@ -2,6 +2,10 @@
 
 
 sbamongoose/  
+├── data/                  (Sample JSON data)
+│   ├── deliveries.json    (Array of delivery objects)
+│   ├── drivers.json       (Array of driver objects)
+│   └── trucks.json        (Array of truck objects)
 ├── models/  
 │   ├── Delivery.js   (Mongoose model)  
 │   ├── Driver.js     (Mongoose model)  
