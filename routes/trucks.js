@@ -13,7 +13,7 @@ router.get('/seed', async (req, res) => {
     ])
     res.redirect('/trucks')
   } catch (error) {
-    console.error('❌ Seed Error:', error)
+    console.error('Seed Error:', error)
     res.status(500).send('Seed failed.')
   }
 })

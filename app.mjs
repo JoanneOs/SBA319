@@ -2,7 +2,7 @@
 import express from 'express';
 
 
-import mangoose from 'mangoose';
+import mongoose from 'mongoose';  // correct spelling
 
 // Import the dotenv module to load environment variables
 import dotenv from 'dotenv';
