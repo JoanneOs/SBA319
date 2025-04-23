@@ -105,5 +105,5 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-//xport router to be used in app
+//export router to be used in app
 export default router;
