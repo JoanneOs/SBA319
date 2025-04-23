@@ -1,13 +1,20 @@
-
 import mongoose from 'mongoose';
 
 const truckSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  color: { type: String, required: true },
-  readyToEat: { type: Boolean, default: false }
-});
+  model: { 
+    type: String, 
+    required: true 
+  },
+  licensePlate: { 
+    type: String, 
+    required: true,
+    unique: true 
+  },
+  capacity: { 
+    type: String, 
+    required: true 
+  },
+  // Add other truck-specific fields as needed
+}, { timestamps: true });
 
-const Truck = mongoose.model('Truck', truckSchema);
-
-export default Truck;
-
+export default mongoose.model('Truck', truckSchema);

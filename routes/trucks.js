@@ -1,78 +1,105 @@
-import express from 'express'
-import Truck from '../models/Truck.mjs'
+import express from 'express';
+import Truck from '../models/Truck.mjs';
 
-const router = express.Router()
+const router = express.Router();
 
-// Seed Route
+// Seed Route (optional)
 router.get('/seed', async (req, res) => {
   try {
     await Truck.create([
-      { name: 'grapefruit', color: 'pink', readyToEat: true },
-      { name: 'grape', color: 'purple', readyToEat: false },
-      { name: 'avocado', color: 'green', readyToEat: true }
-    ])
-    res.redirect('/trucks')
+      { model: 'Ford F-150', licensePlate: 'TRK001', capacity: '5 tons' },
+      { model: 'Chevrolet Silverado', licensePlate: 'TRK002', capacity: '3 tons' },
+      { model: 'Ram 1500', licensePlate: 'TRK003', capacity: '4 tons' }
+    ]);
+    res.redirect('/trucks');
   } catch (error) {
-    console.error('Seed Error:', error)
-    res.status(500).send('Seed failed.')
+    console.error('Seed Error:', error);
+    res.status(500).send('Seed failed.');
   }
-})
+});
 
-// Index Route - Get all fruits
+// Get all trucks
 router.get('/', async (req, res) => {
   try {
-    const trucks = await Truck.find()
-    res.json(trucks)
+    const trucks = await Truck.find();
+    res.json(trucks);
   } catch (err) {
-    console.error('❌ Fetch error:', err)
-    res.status(500).send('Failed to fetch fruits.')
+    console.error('Fetch error:', err);
+    res.status(500).send('Failed to fetch trucks.');
   }
-})
+});
 
-// Show Route - Get one fruit by ID
+// Get one truck by ID
 router.get('/:id', async (req, res) => {
   try {
-    const truck = await Truck.findById(req.params.id)
-    res.json(truck)
+    const truck = await Truck.findById(req.params.id);
+    if (!truck) {
+      return res.status(404).send('Truck not found.');
+    }
+    res.json(truck);
   } catch (err) {
-    console.error('❌ Show error:', err)
-    res.status(404).send('Truck not found.')
+    console.error('Show error:', err);
+    res.status(400).send('Invalid truck ID.');
   }
-})
+});
 
-// Create Route - POST a new fruit
+// Create new truck
+// router.post('/', async (req, res) => {
+//   try {
+//     const newTruck = await Truck.create(req.body);
+//     res.status(201).json(newTruck);
+//   } catch (error) {
+//     console.error('Create error:', error);
+//     res.status(400).send('Failed to create truck.');
+//   }
+// });
+
 router.post('/', async (req, res) => {
-  try {
-    req.body.readyToEat = req.body.readyToEat === 'on' || req.body.readyToEat === true
-    const newTruck = await Truck.create(req.body)
-    res.redirect('/trucks')
-  } catch (error) {
-    console.error('❌ Create error:', error)
-    res.status(400).send('Failed to create truck.')
-  }
-})
+    console.log('POST /trucks hit!');
+    console.log('Request Headers:', req.headers);
+    console.log('Request Body:', req.body); // <-- CRUCIAL
+  
+    try {
+      const newTruck = await Truck.create(req.body);
+      console.log('Truck created:', newTruck);
+      res.status(201).json(newTruck);
+    } catch (error) {
+      console.error('Create error:', error.message);
+      res.status(400).send(`Failed to create truck: ${error.message}`);
+    }
+  });
+  
 
-// Update Route - PUT an existing truck by ID
+// Update truck by ID
 router.put('/:id', async (req, res) => {
   try {
-    req.body.readyToEat = req.body.readyToEat === 'on' || req.body.readyToEat === true
-    await Truck.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect('/truck')
+    const updatedTruck = await Truck.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedTruck) {
+      return res.status(404).send('Truck not found.');
+    }
+    res.json(updatedTruck);
   } catch (error) {
-    console.error('❌ Update error:', error)
-    res.status(400).send('Failed to update fruit.')
+    console.error('Update error:', error);
+    res.status(400).send('Failed to update truck.');
   }
-})
+});
 
-// Delete Route - DELETE one fruit by ID
+// Delete truck by ID
 router.delete('/:id', async (req, res) => {
   try {
-    await Truck.findByIdAndDelete(req.params.id)
-    res.redirect('/truck')
+    const deletedTruck = await Truck.findByIdAndDelete(req.params.id);
+    if (!deletedTruck) {
+      return res.status(404).send('Truck not found.');
+    }
+    res.sendStatus(204);
   } catch (error) {
-    console.error('❌ Delete error:', error)
-    res.status(500).send('Failed to delete fruit.')
+    console.error('Delete error:', error);
+    res.status(500).send('Failed to delete truck.');
   }
-})
+});
 
-export default router
+export default router;
