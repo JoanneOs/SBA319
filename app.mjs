@@ -13,10 +13,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sbamongoose', {
+// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sbamongoose', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
+
+// mongoose.connect(process.env.ATLAS_URI || 'mongodb://localhost:27017/TrucksTest', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+mongoose.connect(process.env.ATLAS_URI || 'mongodb://localhost:27017/test', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
+
+
 
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
