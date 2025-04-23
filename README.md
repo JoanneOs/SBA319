@@ -42,6 +42,6 @@ Finally, I deleted a truck by sending a DELETE request to http://localhost:3000/
 Each route worked as expected, and I was able to test the full cycle of creating, reading, updating, and deleting trucks using Postman.
 
 /////////////////////////////////////////////////////////////////////////
-
-
+Driver route tested too I did the same thing.
+I was able to do full CRUD operations (Create, Read, Update, Delete) using Postman.
 /////////////////////////////////////////////////////////////////////////
