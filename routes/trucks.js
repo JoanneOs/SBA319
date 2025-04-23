@@ -1,9 +1,11 @@
+// Import required modules
 import express from 'express';
 import Truck from '../models/Truck.mjs';
 
+// Initialize Express Router
 const router = express.Router();
 
-// Seed Route (optional)
+// I will keep SEED Route – Adds example trucks to the database
 router.get('/seed', async (req, res) => {
   try {
     await Truck.create([
@@ -18,18 +20,18 @@ router.get('/seed', async (req, res) => {
   }
 });
 
-// Get all trucks
+// Get all trucks  the index route:
 router.get('/', async (req, res) => {
   try {
-    const trucks = await Truck.find();
-    res.json(trucks);
+    const trucks = await Truck.find(); // Get all truck documents
+    res.json(trucks); // Send as JSON response
   } catch (err) {
     console.error('Fetch error:', err);
     res.status(500).send('Failed to fetch trucks.');
   }
 });
 
-// Get one truck by ID
+// Get one truck by ID 
 router.get('/:id', async (req, res) => {
   try {
     const truck = await Truck.findById(req.params.id);
@@ -57,8 +59,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log('POST /trucks hit!');
     console.log('Request Headers:', req.headers);
-    console.log('Request Body:', req.body); // <-- CRUCIAL
-  
+    console.log('Request Body:', req.body);
     try {
       const newTruck = await Truck.create(req.body);
       console.log('Truck created:', newTruck);
