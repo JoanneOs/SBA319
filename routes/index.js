@@ -1,5 +1,6 @@
 import express from 'express';
 import trucksRouter from './trucks.js';
+import driversRouter from './drivers.js';
 
 const router = express.Router();
 
@@ -10,5 +11,8 @@ router.get('/', (req, res) => {
 
 // Mount the trucks router
 router.use('/trucks', trucksRouter);
+
+//adding driver route
+router.use('/drivers', driversRouter);
 
 export default router;
