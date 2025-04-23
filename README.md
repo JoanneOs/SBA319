@@ -7,13 +7,14 @@ sbamongoose/
 │   ├── drivers.json       (Array of driver objects)
 │   └── trucks.json        (Array of truck objects)
 ├── models/  
-│   ├── Delivery.js   (Mongoose model)  
-│   ├── Driver.js     (Mongoose model)  
-│   └── Truck.js      (Mongoose model)  
+│   ├── Delivery.mjs   (Mongoose model)  
+│   ├── Driver.mjs     (Mongoose model)  
+│   └── Truck.mjs      (Mongoose model)  
 ├── routes/  
 │   ├── deliveries.js (Express routes for deliveries)  
 │   ├── drivers.js    (Express routes for drivers)  
 │   └── trucks.js     (Express routes for trucks)  
+|   |__ index.js
 ├── node_modules/  
 ├── .env              (Environment variables)  
 ├── .gitignore        (Ignore node_modules, .env, etc.)  

@@ -13,7 +13,8 @@ import router from './routes/trucks.js'
 // Load environment variables from a .env file into process.env
 dotenv.config(); //initilaize it here
 
-
+const app = express()
+const port = process.env.PORT || 3000
 
 // Middleware
 app.use(express.urlencoded({ extended: true }))
@@ -29,7 +30,9 @@ mongoose.connect(process.env.ATLAS_URI, {
     console.log(' Connected to MongoDB')
   })
 
-  
+  // Use the router
+app.use('/', router)
+
 
 // Start Server
 app.listen(port, () => {
