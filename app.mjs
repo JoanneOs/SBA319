@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import router from './routes/index.js'; // Main router
 
+import deliveryRoutes from './routes/deliveries.js';
+app.use('/deliveries', deliveryRoutes);
+
 dotenv.config();
 
 const app = express();
