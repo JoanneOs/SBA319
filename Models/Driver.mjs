@@ -6,4 +6,4 @@ const driverSchema = new mongoose.Schema({
   experienceYears: { type: Number, required: true },
 }, { timestamps: true });
 
-export default mongoose.model('Driver', driverSchema, 'driver'); // 👈 Collection name = driver
+export default mongoose.model('Driver', driverSchema, 'driver'); // Collection name = driver
