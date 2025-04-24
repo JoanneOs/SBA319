@@ -9,31 +9,36 @@ const router = express.Router();
 
 
 // SEED ROUTE – add sample deliveries to the database
+// SEED ROUTE – add sample deliveries to the database
 router.get('/seed', async (req, res) => {
-  try {
-    await Delivery.create([
-      {
-        item: 'Electronics',
-        destination: 'New York',
-        status: 'In Transit'
-      },
-      {
-        item: 'Books',
-        destination: 'Chicago',
-        status: 'Delivered'
-      },
-      {
-        item: 'Furniture',
-        destination: 'Los Angeles',
-        status: 'Pending'
-      }
-    ]);
-    res.redirect('/deliveries'); // Redirect to GET all deliveries
-  } catch (error) {
-    console.error('Seed Error:', error);
-    res.status(500).send('Failed to seed deliveries.');
-  }
-});
+    try {
+      await Delivery.create([
+        {
+          item: 'Electronics',
+          destination: 'New York',
+          status: 'In Transit',
+          deliveryDate: new Date('2025-06-01T10:00:00Z'), // Add deliveryDate
+        },
+        {
+          item: 'Books',
+          destination: 'Chicago',
+          status: 'Delivered',
+          deliveryDate: new Date('2025-06-02T12:00:00Z'), // Add deliveryDate
+        },
+        {
+          item: 'Furniture',
+          destination: 'Los Angeles',
+          status: 'Pending',
+          deliveryDate: new Date('2025-06-03T14:00:00Z'), // Add deliveryDate
+        }
+      ]);
+      res.redirect('/deliveries'); // Redirect to GET all deliveries
+    } catch (error) {
+      console.error('Seed Error:', error);
+      res.status(500).send('Failed to seed deliveries.');
+    }
+  });
+  
 
 
 // INDEX ROUTE – Get all deliveries
@@ -65,17 +70,18 @@ router.get('/:id', async (req, res) => {
 
 // CREATE ROUTE – Add a new delivery
 router.post('/', async (req, res) => {
-  console.log('POST /deliveries hit!');
-  console.log('Request Body:', req.body);
-  try {
-    const newDelivery = await Delivery.create(req.body); // Create from request body
-    console.log('Delivery created:', newDelivery);
-    res.status(201).json(newDelivery); // Send back the created delivery
-  } catch (error) {
-    console.error('Create error:', error.message);
-    res.status(400).send(`Failed to create delivery: ${error.message}`);
-  }
-});
+    console.log('POST /deliveries hit!');
+    console.log('Request Body:', req.body); // Log the body to inspect the data
+    try {
+      const newDelivery = await Delivery.create(req.body); // Create from request body
+      console.log('Delivery created:', newDelivery);
+      res.status(201).json(newDelivery); // Send back the created delivery
+    } catch (error) {
+      console.error('Create error:', error.message);
+      res.status(400).send(`Failed to create delivery: ${error.message}`);
+    }
+  });
+  
 
 
 // UPDATE ROUTE – Update a delivery by ID
